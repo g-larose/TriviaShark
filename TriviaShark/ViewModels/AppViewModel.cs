@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TriviaShark.Commands;
 using TriviaShark.Interfaces;
+using TriviaShark.Services;
 
 namespace TriviaShark.ViewModels
 {
@@ -13,6 +14,7 @@ namespace TriviaShark.ViewModels
     {
         private readonly INavigator _navigator;
 		public ICommand ExitAppCommand { get; }
+
 		private bool _isDrawerOPen;
 		public bool IsDrawerOpen
 		{
@@ -24,11 +26,13 @@ namespace TriviaShark.ViewModels
         {
             _navigator = navigator;
             ExitAppCommand = new RelayCommand(ExitApp);
+           
         }
 
         private void ExitApp()
         {
             App.Current.Shutdown();
         }
+
     }
 }
