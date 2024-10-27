@@ -24,5 +24,11 @@ namespace TriviaShark
         {
             InitializeComponent();
         }
+
+        private void ColorZone_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+                DragMove();
+        }
     }
 }

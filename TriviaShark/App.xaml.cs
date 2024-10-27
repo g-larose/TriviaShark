@@ -7,6 +7,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using TriviaShark.Interfaces;
+using TriviaShark.Navigation;
 using TriviaShark.ViewModels;
 
 namespace TriviaShark
@@ -20,10 +22,12 @@ namespace TriviaShark
             _host = Host.CreateDefaultBuilder().ConfigureServices(services =>
             {
                 services.AddSingleton<AppViewModel>();
+                services.AddSingleton<INavigator, Navigator>();
                 services.AddSingleton<MainWindow>(s => new MainWindow()
                 {
                     DataContext = s.GetRequiredService<AppViewModel>()
                 });
+                
 
             }).Build();
         }
