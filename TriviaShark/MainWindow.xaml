@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriviaShark"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:vm="clr-namespace:TriviaShark.ViewModels"
+        xmlns:v="clr-namespace:TriviaShark.Views"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -18,7 +20,7 @@
                 Width="1200"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Center"
-                Background="{StaticResource PrimaryToSecondaryGradientBrush}"
+                Background="{StaticResource PrimaryColorBrush}"
                 CornerRadius="20 20 0 0">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="30"
@@ -28,7 +30,8 @@
                                   Opacity=".6" />
             </Border.Effect>
             <md:DrawerHost Panel.ZIndex="1"
-                           IsLeftDrawerOpen="{Binding IsDrawerOpen}">
+                           IsLeftDrawerOpen="{Binding IsDrawerOpen}"
+                           Padding="2">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100" />
@@ -39,9 +42,16 @@
                                   Mode="PrimaryDark"
                                   Padding="20"
                                   Height="100"
-                                  Background="{StaticResource Primary200ColorBrush}"
+                                  
                                   CornerRadius="20 20 0 0"
                                   MouseDown="ColorZone_MouseDown">
+                        <md:ColorZone.Effect>
+                            <DropShadowEffect BlurRadius="8"
+                                              ShadowDepth="2"
+                                              Direction="-90"
+                                              Color="Black"
+                                              Opacity=".4" />
+                        </md:ColorZone.Effect>
                         <Grid Grid.RowSpan="3">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
@@ -97,6 +107,12 @@
                                         Content="{Binding SelectedViewModel}"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Top">
+                            <ContentControl.Resources>
+                              <DataTemplate DataType="{x:Type vm:DashboardViewModel}">
+                                    <v:Dashboard />
+                                </DataTemplate>  
+                            </ContentControl.Resources>
+                            
                             
                         </ContentControl>
                     </Grid>
@@ -114,23 +130,51 @@
                                 Command="{x:Static md:DrawerHost.CloseDrawerCommand}"
                                 CommandParameter="{x:Static Dock.Left}">
                             <md:PackIcon Kind="ArrowLeftBold" 
-                                            Width="30"
-                                            Height="30"/>
+                                         Width="30"
+                                         Height="30"/>
                         </Button>
-                        <Button
+                        <Button Padding="0"
                                 VerticalAlignment="Top"
-                                HorizontalAlignment="Left"
+                                HorizontalAlignment="Center"
                                 Background="Transparent"
                                 BorderBrush="Transparent"
-                                Width="100"
-                                Height="50">
-                            <md:PackIcon Kind="Home"
+                                Width="50"
+                                Height="60"
+                                Margin="0 40 0 10"
+                                Command="{Binding NavigateDashboardCommand}"
+                                AutomationProperties.HelpText="Navigate Home Button">
+                            <StackPanel Orientation="Vertical">
+                               <md:PackIcon Kind="Home"
                                          Foreground="{StaticResource Primary700ColorBrush}"
-                                         Width="80"
+                                         Width="40"
                                          Height="40"
                                          HorizontalAlignment="Left"/>
+                                <TextBlock Text="HOME"
+                                           Foreground="{StaticResource Primary700ColorBrush}"
+                                           FontSize="14" />
+                            </StackPanel>
+                                        
+                            
                         </Button>
-                                
+                        <Button Padding="0"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Center"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                Width="50"
+                                Height="60"
+                                Margin="0 4">
+                            <StackPanel Orientation="Vertical">
+                                <md:PackIcon Kind="Home"
+                                         Foreground="{StaticResource Primary700ColorBrush}"
+                                         Width="40"
+                                         Height="40"
+                                         HorizontalAlignment="Left"/>
+                                <TextBlock Text="HOME"
+                                           Foreground="{StaticResource Primary700ColorBrush}"
+                                           FontSize="14" />
+                            </StackPanel>
+                        </Button>   
                         
                     </StackPanel>  
                 </md:DrawerHost.LeftDrawerContent>         

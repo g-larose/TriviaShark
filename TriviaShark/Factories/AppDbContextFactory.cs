@@ -1,18 +1,30 @@
-﻿using Microsoft.EntityFrameworkCore.Design;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TriviaShark.Data;
+using TriviaShark.Interfaces;
+using TriviaShark.Services;
 
 namespace TriviaShark.Factories
 {
-    public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+    public class AppDbContextFactory : IDbContextFactory<AppDbContext>
     {
-        public AppDbContext CreateDbContext(string[]? args = null)
+        private readonly IDataService _dataService = new DataServiceProvider();
+
+        public AppDbContext CreateDbContext()
         {
-            throw new NotImplementedException();
+            var conStr = "";
+            Task.Run(async () =>
+            {
+                conStr = await _dataService.GetConnectionStringAsync();
+
+            });
+            var options = new DbContextOptionsBuilder<AppDbContext>();
+            return new AppDbContext(options.Options);
         }
     }
 }
