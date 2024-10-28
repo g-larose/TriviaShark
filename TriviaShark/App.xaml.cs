@@ -34,11 +34,13 @@ namespace TriviaShark
 
         protected override void OnExit(ExitEventArgs e)
         {
+            _host!.Dispose();
             base.OnExit(e);
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            _host!.Start();
             MainWindow = _host!.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
             base.OnStartup(e);

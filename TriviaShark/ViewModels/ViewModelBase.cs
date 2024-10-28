@@ -23,5 +23,10 @@ namespace TriviaShark.ViewModels
             OnPropertyChanged(propertyName);
             return true;
         }
+
+        public static explicit operator ViewModelBase(Type v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace TriviaShark.ViewModels
         public ICommand NavigateDashboardCommand { get; }
 
         public ViewModelBase? SelectedViewModel => _navigator.CurrentViewModel;
+        public ViewModelBase? CurrentViewModel { get; set; }
 
 		private bool _isDrawerOPen;
 		public bool IsDrawerOpen
@@ -29,7 +30,7 @@ namespace TriviaShark.ViewModels
         {
             _navigator = navigator;
             _navigator.CurrentViewModelChanged += OnSelectedViewModelChanged;
-            NavigateDashboardCommand = new NavigateCommand<DashboardViewModel>(_navigator, () => new DashboardViewModel());
+            NavigateDashboardCommand = new NavigateCommand<DashboardViewModel>(_navigator, () => new DashboardViewModel(_navigator, this));
             ExitAppCommand = new RelayCommand(ExitApp);
            
         }
